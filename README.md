@@ -51,6 +51,9 @@ This project is consists of four sections:
 There are two jupyter notebook in the **data** and **models** folder which can help you understand how the pipeline is built.
 You can use **ML Pipeline Preparation Notebook** to retrain the model and tune it by Grid Search.
 
+## Acknowledgements
+* [Udacity](https://www.udacity.com/) for providing the data scientist program
+* [Figure Eight](https://www.figure-eight.com/) for providing the disaster messagre dataset to train the model
 ## Screenshots
 
 1. This is the home page to the disaster response app:
