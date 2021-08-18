@@ -1,7 +1,7 @@
 # Disaster Response Pipeline & Web app
 
 ## Description
-This repo is part of Data Science Nanodegree Program with data from Figure Eight aiming to build a ML model (based on NLP) to categorize messages in a real time and visualize historical data.
+This repo is part of Data Science Nanodegree Program with data from Figure Eight aiming to build a ML model (based on NLP) to categorize messages in a real time and visualize historical data. In the event of disaster, this application can help people tag huge amount of messages and efficiently find the people who really need help.
 
 This project is consists of four sections:
 
@@ -28,7 +28,7 @@ This project is consists of four sections:
     - ML pipeline:
         `python models/train_classifier.py data/disaster_response_db.db models/classifier.pkl`
 
-2. Go to `app` folder and run `python api.py` to start backend API.
+2. Go to `app` folder and run `python run.py` to start backend API.
     
 3. Start another terminal, go to `app` folder and run `npm i` or `yarn` to install necessary packages of the front-end package, then run `npm serve` after installation.
    
@@ -37,7 +37,7 @@ This project is consists of four sections:
 ### Files
 **app/dashboard/***: front-end web app project
 
-**app/api.py**: Script to launch the Flask web back-end API
+**app/run.py**: Script to launch the Flask web back-end API
 
 **app/api-doc.yaml**: Document of the back-end API in yaml
 

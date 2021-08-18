@@ -117,3 +117,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print('----- Web page needs to be launched in dashboard folder in port 8080 -----')
+    print('----- api schema can be found in api-doc.yaml -----')
