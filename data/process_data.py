@@ -1,6 +1,6 @@
 """
 Sample Execution:
-> python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
+> python process_data.py disaster_messages.csv disaster_categories.csv disaster_response_db.db
 
 Args:
     1. Path to the messages CSV file
@@ -10,6 +10,7 @@ Args:
 
 # Import all libraries
 import sys
+import os
 import pandas as pd
 from sqlalchemy import create_engine
  
@@ -52,6 +53,10 @@ def clean_data(df):
     df = pd.concat([df,categories],axis=1)
     df = df.drop_duplicates()
     
+    #Remove columns that are all 0 or 1, clean `related` column
+    df = df.loc[:,~((df==1).all()|(df==0).all())]
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else 0)
+    
     return df
 
 def save_data_to_db(df, database_filename):
@@ -62,7 +67,8 @@ def save_data_to_db(df, database_filename):
     """
     
     engine = create_engine('sqlite:///'+ database_filename)
-    table_name = database_filename.replace(".db","") + "_table"
+    table_name = os.path.basename(database_filename).replace(".db","") + "_table"
+    print(table_name)
     df.to_sql(table_name, engine, index=False, if_exists='replace')
 
 def main():
@@ -97,7 +103,7 @@ def main():
               'well as the filepath of the database to save the cleaned data '\
               'to as the third argument. \n\nExample: python process_data.py '\
               'disaster_messages.csv disaster_categories.csv '\
-              'DisasterResponse.db')
+              'disaster_response_db.db')
 
 if __name__ == '__main__':
     main()

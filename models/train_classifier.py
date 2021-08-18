@@ -29,6 +29,7 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.base import BaseEstimator,TransformerMixin
 from sklearn.metrics import fbeta_score
+from sklearn.model_selection import GridSearchCV
 
 def load_data(database_filepath):
     """
@@ -42,10 +43,8 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///' + database_filepath)
     table_name = os.path.basename(database_filepath).replace(".db","") + "_table"
     df = pd.read_sql_table(table_name,engine)
-    
-    #Remove columns that are all 0 or 1, clean `related` column
-    df = df.loc[:,~((df==1).all()|(df==0).all())]
-    df['related']=df['related'].map(lambda x: 1 if x == 2 else 0)
+   
+    print('related\n', df['related'].value_counts())
     
     X = df['message']
     y = df.iloc[:,4:]
@@ -120,7 +119,11 @@ def build_pipeline():
 
         ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
     ])
-    return pipeline
+
+    parameters = {'classifier__estimator__learning_rate': [0.01, 0.02, 0.05],
+            'classifier__estimator__n_estimators': [10, 20, 40]}
+
+    return GridSearchCV(pipeline, param_grid=parameters, scoring='f1_micro', n_jobs=-1)
 
 def calculate_fscore(y_true,y_pred):
     """
@@ -221,7 +224,7 @@ def main():
           print('Please provide the filepath of the disaster messages database '\
               'as the first argument and the filepath of the pickle file to '\
               'save the model to as the second argument. \n\nExample: python '\
-              'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
+              'train_classifier.py ../data/disaster_response_db.db classifier.pkl')
 
 if __name__ == '__main__':
     main()
