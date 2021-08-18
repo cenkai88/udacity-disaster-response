@@ -28,7 +28,7 @@ This project is consists of four sections:
     - ML pipeline:
         `python models/train_classifier.py data/disaster_response_db.db models/classifier.pkl`
 
-2. Go to `app` folder and run `python run.py` to start backend API.
+2. Go to `app` folder and run `python api.py` to start backend API.
     
 3. Start another terminal, go to `app` folder and run `npm i` or `yarn` to install necessary packages of the front-end package, then run `npm serve` after installation.
    
